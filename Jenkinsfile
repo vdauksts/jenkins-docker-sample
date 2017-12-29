@@ -28,8 +28,16 @@ throttle(['docker']) {
 			// docker run -td -p 8080:3000 jcantosz/jenkins-node:latest
 			
 			docker.withServer('tcp://swarm:2376', 'dockerswarm'){
+				// This causes the container to exit on stop
+				/**
 				app.withRun('-td -p 8080:3000'){
+					sh 'whoami'
+					sh 'ps -ef'
+					sh 'sleep 100'
 				}
+				**/
+				//app.run('-p 8080:3000')
+				app.inside('-p 8080:3000')
 			}
 		}
 		stage('Test'){
