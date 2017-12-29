@@ -12,7 +12,8 @@ throttle(['docker']) {
 		stage('Setup'){
 			// Resolve hostname locally (add to DNS would be even better)
 			sh '''
-			  echo "10.1.2.93 swarm" | tee -a /etc/hosts
+			  echo "test"
+			  #echo "10.1.2.93 swarm" | tee -a /etc/hosts
 			'''
 		}
 		
