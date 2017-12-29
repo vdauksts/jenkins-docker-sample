@@ -25,10 +25,10 @@ throttle(['docker']) {
 		
 		stage('Deploy'){
 			// Connect to the swarm
-			// docker run -d -p 8080:3000 -t jcantosz/jenkins-node:latest
+			// docker run -td -p 8080:3000 jcantosz/jenkins-node:latest
 			
 			docker.withServer('tcp://swarm:2376', 'dockerswarm'){
-				app.withRun('-d -p 8080:3000'){
+				app.withRun('-td -p 8080:3000'){
 					sh 'whoami'
 					sh 'ps -ef'
 					sh 'sleep 100'
