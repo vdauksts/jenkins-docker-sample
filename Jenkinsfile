@@ -36,8 +36,7 @@ throttle(['docker']) {
 					sh 'sleep 100'
 				}
 				**/
-				//app.run('-p 8080:3000')
-				app.inside('-p 8080:3000')
+				app.run('-p 8080:3000')
 			}
 		}
 		stage('Test'){
