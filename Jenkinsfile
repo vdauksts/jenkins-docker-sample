@@ -13,7 +13,6 @@ throttle(['docker']) {
 			// Resolve hostname locally (add to DNS would be even better)
 			sh '''
 			  echo "test"
-			  #echo "10.1.2.93 swarm" | tee -a /etc/hosts
 			'''
 		}
 		
@@ -28,7 +27,10 @@ throttle(['docker']) {
 			// Connect to the swarm
 			// docker run -d -p 8080:3000 -t jcantosz/jenkins-node:latest
 			docker.withServer('tcp://swarm:2376', 'dockerswarm'){
-				app.withRun('-p 8080:3000')
+				app.withRun('-p 8080:3000'){
+					sh 'whoami'
+					sh 'ps -ef'
+				}
 			}
 		}
 		stage('Test'){
