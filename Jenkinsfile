@@ -29,9 +29,6 @@ throttle(['docker']) {
 			
 			docker.withServer('tcp://swarm:2376', 'dockerswarm'){
 				app.withRun('-td -p 8080:3000'){
-					sh 'whoami'
-					sh 'ps -ef'
-					sh 'sleep 100'
 				}
 			}
 		}
