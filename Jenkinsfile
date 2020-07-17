@@ -17,32 +17,20 @@ throttle(['docker']) {
 		}
 		
 		stage('Build'){
-			// docker build -t jcantosz/jenkins-node:latest .
-			docker.withServer('tcp://swarm:2376', 'dockerswarm'){
-				app = docker.build("jcantosz/jenkins-node:latest")
-			}
+			docker build -t jcantosz/jenkins-node:latest .
 		}
 		
 		stage('Deploy'){
 			// Connect to the swarm
 			// docker run -td -p 8080:3000 jcantosz/jenkins-node:latest
-			
-			docker.withServer('tcp://swarm:2376', 'dockerswarm'){
-				// This causes the container to exit on stop
-				/**
-				app.withRun('-td -p 8080:3000'){
-					sh 'whoami'
-					sh 'ps -ef'
-					sh 'sleep 100'
-				}
-				**/
-				app.run('-p 8080:3000')
-			}
+			sh '''
+			  echo "hi"
+			'''			
 		}
 		stage('Test'){
 			// curl  swarm:8080
 			sh '''
-				curl swarm:8080
+				curl -vL https://google.com
 				'''
 		}
 	}
