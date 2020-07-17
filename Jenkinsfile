@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'testing'
     }
+	stages {
 		stage('Clone'){
 			checkout scm
 		}
@@ -40,4 +41,5 @@ pipeline {
 				curl -vL https://google.com
 				'''
 		}
+	}
 }
