@@ -33,17 +33,20 @@ pipeline {
 		}
 		
 		stage('Deploy'){
-			// Connect to the swarm
-			// docker run -td -p 8080:3000 jcantosz/jenkins-node:latest
+		    steps {
+			// Resolve hostname locally (add to DNS would be even better)
 			sh '''
-			  echo "hi"
-			'''			
+			  echo "deploy"
+			'''
+		    }	
 		}
 		stage('Test'){
+			steps {
 			// curl  swarm:8080
 			sh '''
 				curl -vL https://google.com
 				'''
+			}
 		}
 	}
 }
