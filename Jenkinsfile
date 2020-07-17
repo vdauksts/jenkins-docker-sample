@@ -1,11 +1,9 @@
-// Throttle the node docker
-throttle(['docker']) {
-	// On the node, run these things
-	node {
-		def app
-	
-		// The pipeline (do we need "stages")
 
+pipeline {
+    agent any
+    environment {
+        DOCKER_IMAGE = 'testing'
+    }
 		stage('Clone'){
 			checkout scm
 		}
@@ -17,7 +15,16 @@ throttle(['docker']) {
 		}
 		
 		stage('Build'){
-			docker build -t testing:latest .
+		    steps {
+			timestamps {
+			    retry(3) {
+				sh label: 'image build', script: '''
+				    export DOCKER_TAG=${JOB_NAME}
+				    docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} --build-arg tag=${DOCKER_TAG} .
+				'''
+			    }
+			}
+		    }
 		}
 		
 		stage('Deploy'){
@@ -33,5 +40,4 @@ throttle(['docker']) {
 				curl -vL https://google.com
 				'''
 		}
-	}
 }
