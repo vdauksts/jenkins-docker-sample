@@ -17,7 +17,7 @@ throttle(['docker']) {
 		}
 		
 		stage('Build'){
-			docker build -t jcantosz/jenkins-node:latest .
+			docker build -t testing:latest .
 		}
 		
 		stage('Deploy'){
