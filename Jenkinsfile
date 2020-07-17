@@ -5,14 +5,18 @@ pipeline {
         DOCKER_IMAGE = 'testing'
     }
 	stages {
-		stage('Clone'){
+		stage('checkout') {
+		    steps {
 			checkout scm
+		    }
 		}
 		stage('Setup'){
+		    steps {
 			// Resolve hostname locally (add to DNS would be even better)
 			sh '''
 			  echo "test"
 			'''
+		    }
 		}
 		
 		stage('Build'){
